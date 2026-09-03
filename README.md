@@ -44,7 +44,7 @@
 
 石一晶 | 2763756691@qq.com
 
-余波 |  bo.yu3311@outlook.com |https://faculty.xauat.edu.cn/yubo/zh_CN/index/112464/list/index.htm
+余波 |  bo.yu3311@outlook.com | https://faculty.xauat.edu.cn/yubo/zh_CN/index/112464/list/index.htm
 
 ---
 
