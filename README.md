@@ -36,7 +36,7 @@
 
 ## 在线访问
 
-访问链接：[https://lamontbeau.github.io/shiyijing_xinwenke/]
+访问链接：https://lamontbeau.github.io/shiyijing_xinwenke/
 
 ## 联系方式
 
