@@ -1,0 +1,244 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>研究方法 · 西安陆港绿色效应测度</title>
+<link rel="stylesheet" href="assets/style.css">
+<script src="https://polyfill.io/v3/polyfill.min.js?features=es6"></script>
+<script id="MathJax-script" async src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js"></script>
+<script>
+window.MathJax = {
+  tex: {
+    inlineMath: [['$', '$'], ['\\(', '\\)']],
+    displayMath: [['$$', '$$'], ['\\[', '\\]']]
+  }
+};
+</script>
+</head>
+<body>
+<header>
+  <div class="hwrap">
+    <div class="brand">
+      <b>西安陆港绿色效应测度</b>
+      <span>西安建筑科技大学 · 管理学院</span>
+    </div>
+    <nav>
+      <a href="index.html">项目概况</a>
+      <a href="method.html" aria-current="page">研究方法</a>
+      <a href="data.html">数据可视化</a>
+      <a href="results.html">研究成果</a>
+      <a href="team.html">团队介绍</a>
+    </nav>
+  </div>
+</header>
+
+<main>
+
+<section>
+  <h2>研究方法与技术路线</h2>
+  <p class="sub">空间一般均衡建模 + AutoML降噪 + 因果推断</p>
+</section>
+
+<section>
+  <h3>一、理论框架：空间一般均衡模型</h3>
+
+  <div class="card tint">
+    <h4>🏛️ 基本设定</h4>
+    <p style="margin-bottom:16px">本研究以Redding & Rossi-Hansberg (2017) 的空间一般均衡框架为理论基础，刻画集结中心开通对区域经济、环境与社会的综合效应。</p>
+
+    <p style="margin-bottom:12px"><b>1. 企业生产函数</b></p>
+    <div style="background:#fff; padding:16px; border-radius:6px; margin-bottom:16px">
+      $$Y_i = A_i L_i^\alpha K_i^\beta T_i^{1-\alpha-\beta}$$
+    </div>
+    <p style="font-size:14px; line-height:1.8; margin-bottom:16px">
+      其中 $Y_i$ 为地区 $i$ 的产出，$A_i$ 为全要素生产率，$L_i$ 为劳动投入，$K_i$ 为资本投入，
+      $T_i$ 为运输服务投入。集结中心开通降低运输成本 $\tau$，提升 $T_i$ 的有效供给。
+    </p>
+
+    <p style="margin-bottom:12px"><b>2. 运输成本函数</b></p>
+    <div style="background:#fff; padding:16px; border-radius:6px; margin-bottom:16px">
+      $$\tau_{ij} = \tau_0 \cdot d_{ij}^\theta \cdot (1 - \gamma \cdot \mathbb{1}[\text{Rail}_{ij}])$$
+    </div>
+    <p style="font-size:14px; line-height:1.8; margin-bottom:16px">
+      $d_{ij}$ 为地区 $i$ 到 $j$ 的距离，$\theta$ 为距离衰减弹性，$\mathbb{1}[\text{Rail}_{ij}]$ 为铁路连通指示变量，
+      $\gamma$ 为"公转铁"带来的成本节约率。研究表明 $\gamma \approx 0.45$（基于实际物流成本测算）。
+    </p>
+
+    <p style="margin-bottom:12px"><b>3. 碳排放生产函数</b></p>
+    <div style="background:#fff; padding:16px; border-radius:6px; margin-bottom:16px">
+      $$E_i = e_{\text{road}} \cdot Q_{\text{road},i} + e_{\text{rail}} \cdot Q_{\text{rail},i}$$
+    </div>
+    <p style="font-size:14px; line-height:1.8">
+      $E_i$ 为地区 $i$ 的交通碳排放，$e_{\text{road}} = 133 \text{ gCO}_2/\text{t·km}$（公路），
+      $e_{\text{rail}} = 21 \text{ gCO}_2/\text{t·km}$（铁路），$Q$ 为货运周转量。集结中心开通通过提高 $Q_{\text{rail},i} / Q_{\text{road},i}$ 实现减排。
+    </p>
+  </div>
+</section>
+
+<section>
+  <h3>二、技术路线：AutoML + 因果推断</h3>
+  <p>项目技术路线分四步递进：数据准备 → 机器学习降噪 → 模型评估 → 因果推断。</p>
+
+  <div class="timeline" style="margin-top:24px">
+    <div class="timeline-item">
+      <div class="timeline-marker">1</div>
+      <div class="timeline-content">
+        <h4>数据准备与时空对齐</h4>
+        <p><b>目标：</b>构建训练集与测试集，确保时空一致性</p>
+        <ul>
+          <li>以ERA5-Land大气再分析数据为预测标签</li>
+          <li>通过随机打乱与滚动两周前后同一小时标签完成时空对齐</li>
+          <li>确保训练数据的时空一致性与代表性</li>
+        </ul>
+        <p><b>数据来源：</b>ECMWF ERA5-Land，空间分辨率0.1°×0.1°，时间分辨率1小时</p>
+      </div>
+    </div>
+
+    <div class="timeline-item">
+      <div class="timeline-marker">2</div>
+      <div class="timeline-content">
+        <h4>自动机器学习模型训练</h4>
+        <p><b>目标：</b>分离气象干扰，净化污染物浓度数据</p>
+        <p><b>算法组合：</b></p>
+        <ul>
+          <li><b>XGBoost：</b>梯度提升决策树，处理高维非线性关系</li>
+          <li><b>GBM：</b>梯度提升机，增强模型泛化能力</li>
+          <li><b>随机森林：</b>集成学习，降低过拟合风险</li>
+          <li><b>深度学习：</b>神经网络，捕捉复杂交互效应</li>
+        </ul>
+        <p><b>验证策略：</b>重复500次交叉验证，确保模型稳健性</p>
+      </div>
+    </div>
+
+    <div class="timeline-item">
+      <div class="timeline-marker">3</div>
+      <div class="timeline-content">
+        <h4>模型评估与数据净化</h4>
+        <p><b>评估指标：</b></p>
+        <div style="background:#F8F9FA; padding:16px; border-radius:6px; margin-top:12px">
+          <p style="margin-bottom:8px">$$r^2 = 1 - \frac{\sum (y_i - \hat{y}_i)^2}{\sum (y_i - \bar{y})^2}$$</p>
+          <p style="margin-bottom:8px">$$\text{RMSE} = \sqrt{\frac{1}{n}\sum (y_i - \hat{y}_i)^2}$$</p>
+          <p style="margin-bottom:8px">$$\text{FAC2} = \frac{1}{n}\sum \mathbb{1}[0.5 \leq \hat{y}_i/y_i \leq 2.0]$$</p>
+          <p>$$\text{IOA} = 1 - \frac{\sum (y_i - \hat{y}_i)^2}{\sum (|\hat{y}_i - \bar{y}| + |y_i - \bar{y}|)^2}$$</p>
+        </div>
+        <p style="margin-top:12px"><b>输出：</b>机器学习降噪后的PM2.5浓度数据，空间分辨率0.1°×0.1°</p>
+      </div>
+    </div>
+
+    <div class="timeline-item">
+      <div class="timeline-marker">4</div>
+      <div class="timeline-content">
+        <h4>因果推断与效应测度</h4>
+        <p><b>目标：</b>精准测度集结中心开通的政策冲击效应</p>
+        <p><b>因果推断方法：</b></p>
+        <ul>
+          <li><b>交错双重差分（Staggered DID）：</b>主估计方法，处理政策分批实施</li>
+          <li><b>合成双重差分（Synthetic DID）：</b>稳健性检验</li>
+          <li><b>增强型合成控制（Augmented SCM）：</b>交叉验证</li>
+          <li><b>时间断点回归（RD in Time）：</b>处理时间截断效应</li>
+        </ul>
+        <p><b>内生性处理：</b>以历史运输通道与历史港口布局构造工具变量（IV）</p>
+        <p><b>诊断检验：</b>平行趋势检验、安慰剂检验、培根分解（Bacon Decomposition）</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section>
+  <h3>三、因果识别模型</h3>
+
+  <div class="card">
+    <h4>📊 交错双重差分模型（Staggered DID）</h4>
+    <p style="margin-bottom:16px">集结中心开通时间存在地区差异，采用交错DID捕捉异质性处理效应：</p>
+    <div style="background:#F8F9FA; padding:20px; border-radius:8px; margin-bottom:16px">
+      $$Y_{it} = \alpha_i + \lambda_t + \sum_{k \neq -1} \beta_k \cdot \mathbb{1}[t - E_i = k] + \gamma X_{it} + \varepsilon_{it}$$
+    </div>
+    <p style="font-size:14px; line-height:1.8; margin-bottom:12px">
+      其中 $Y_{it}$ 为结果变量（PM2.5浓度、物流成本、夜间灯光强度等），$\alpha_i$ 为个体固定效应，$\lambda_t$ 为时间固定效应，
+      $E_i$ 为第 $i$ 个地区的政策实施时点，$\beta_k$ 为相对政策实施第 $k$ 期的动态处理效应，$X_{it}$ 为控制变量。
+    </p>
+    <p style="font-size:14px; line-height:1.8">
+      <b>识别假设：</b>平行趋势假设 $E[\varepsilon_{it} | \text{Treat}_i, t < E_i] = 0$，即处理组与对照组在政策前具有共同趋势。
+      通过事件研究图（Event Study）验证 $\beta_{k<-1} \approx 0$。
+    </p>
+  </div>
+
+  <div class="card ice" style="margin-top:24px">
+    <h4>🔬 增强型合成控制法（Augmented SCM）</h4>
+    <p style="margin-bottom:16px">为放松平行趋势假设，采用Abadie et al. (2010) 的合成控制法，并引入Ben-Michael et al. (2021) 的增强估计量：</p>
+    <div style="background:#fff; padding:20px; border-radius:8px; margin-bottom:16px">
+      $$\hat{\tau}_{it} = Y_{it}^{(1)} - \sum_{j \in \mathcal{J}_0} \omega_j^* Y_{jt}^{(0)}$$
+    </div>
+    <p style="font-size:14px; line-height:1.8; margin-bottom:16px">
+      其中 $\omega_j^*$ 为最优权重，通过最小化处理前预测误差求得：
+    </p>
+    <div style="background:#fff; padding:20px; border-radius:8px; margin-bottom:16px">
+      $$\omega^* = \arg\min_{\omega} \sum_{t < T_0} \left( Y_{it}^{(1)} - \sum_{j} \omega_j Y_{jt}^{(0)} \right)^2 + \lambda \|\omega\|_2^2$$
+    </div>
+    <p style="font-size:14px; line-height:1.8">
+      $\lambda$ 为正则化参数，$T_0$ 为政策实施时点。该方法通过加权构造"合成西安"，允许处理组与对照组存在异质性趋势。
+    </p>
+  </div>
+
+  <div class="card green" style="margin-top:24px">
+    <h4>🛠️ 工具变量法（2SLS）</h4>
+    <p style="margin-bottom:16px">针对集结中心选址的内生性问题，采用两阶段最小二乘法（2SLS）：</p>
+    <div style="background:#F8F9FA; padding:20px; border-radius:8px; margin-bottom:16px">
+      <p style="margin-bottom:12px"><b>第一阶段：</b></p>
+      $$\text{Rail}_{it} = \pi_0 + \pi_1 Z_{i} + \pi_2 X_{it} + \nu_{it}$$
+      <p style="margin:16px 0 12px 0"><b>第二阶段：</b></p>
+      $$Y_{it} = \beta_0 + \beta_1 \widehat{\text{Rail}}_{it} + \beta_2 X_{it} + \varepsilon_{it}$$
+    </div>
+    <p style="font-size:14px; line-height:1.8">
+      工具变量 $Z_i$ 选取：<b>（1）历史铁路里程密度</b>（1990年代数据，早于集结中心规划）；
+      <b>（2）地形坡度</b>（影响铁路建设成本但不直接影响当前经济活动）。
+      F统计量 > 10，满足相关性要求；Sargan检验通过，满足外生性要求。
+    </p>
+  </div>
+</section>
+
+<section>
+  <h3>四、稳健性检验</h3>
+  <div class="grid g3">
+    <div class="card">
+      <h4>🔄 安慰剂检验</h4>
+      <p>虚构政策时点至2018年（实际开通前2年），重新估计模型。若估计系数显著，则说明存在混淆因素；反之则验证了因果识别的有效性。</p>
+    </div>
+    <div class="card">
+      <h4>📐 培根分解</h4>
+      <p>采用Goodman-Bacon (2021) 分解法，将交错DID估计量分解为"早期vs晚期"、"处理vs对照"等子估计量，检验异质性处理效应是否导致估计偏误。</p>
+    </div>
+    <div class="card">
+      <h4>🔀 更换对照组</h4>
+      <p>将对照组从"西北内陆城市"更换为"中部内陆城市"，验证估计结果是否对对照组选择敏感。若结论稳健，则增强因果推断可信度。</p>
+    </div>
+  </div>
+</section>
+
+<section>
+  <h3>五、方法论创新点</h3>
+  <div class="grid g2">
+    <div class="card ice">
+      <h4>💡 AutoML + 因果推断融合范式</h4>
+      <p>首次将自动机器学习（XGBoost、随机森林、深度学习）与因果推断（DID、SCM）相结合：<b>先用AutoML分离气象干扰并净化数据，再用因果推断精准测度政策效应</b>。兼顾预测精度与因果解释，突破传统研究"要么预测、要么因果"的二元对立。</p>
+    </div>
+    <div class="card amber">
+      <h4>📊 空间一般均衡建模</h4>
+      <p>构建包含运输成本、碳排放与产业集聚的空间一般均衡模型，理论推导"公转铁"通过<b>替代优化调整、技术互促扩散、生产集约分工</b>三条机制影响区域经济与环境。为实证分析提供清晰的理论预期与机制检验路径。</p>
+    </div>
+  </div>
+</section>
+
+</main>
+
+<footer>
+  <div class="hwrap">
+    <div>西安陆港绿色效应测度项目 · 西安建筑科技大学管理学院</div>
+    <div>指导教师：余波 · 团队负责人：石一晶 · 2026年9月</div>
+  </div>
+</footer>
+
+<script src="assets/app.js"></script>
+</body>
+</html>

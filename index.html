@@ -1,0 +1,305 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>西安陆港绿色效应测度 · 新文科实践创新项目</title>
+<meta name="description" content="自动机器学习驱动西安陆港绿色效应测度与中欧班列联动路径探索">
+<link rel="stylesheet" href="assets/style.css">
+</head>
+<body>
+<header>
+  <div class="hwrap">
+    <div class="brand">
+      <b>西安陆港绿色效应测度</b>
+      <span>西安建筑科技大学 · 管理学院</span>
+    </div>
+    <nav>
+      <a href="index.html" aria-current="page">项目概况</a>
+      <a href="method.html">研究方法</a>
+      <a href="data.html">数据可视化</a>
+      <a href="results.html">研究成果</a>
+      <a href="team.html">团队介绍</a>
+    </nav>
+  </div>
+</header>
+
+<div class="hero">
+  <div class="hwrap">
+    <h1>自动机器学习驱动西安陆港绿色效应测度<br>与中欧班列联动路径探索</h1>
+    <p>运用随机森林、XGBoost等自动机器学习算法，融合卫星遥感、夜间灯光、货车GPS等多源大数据，
+       评估西安国际陆港集结中心的环境、经济、社会三维效应，服务"一带一路"高质量发展。</p>
+    <div class="meta">
+      <div><b>12</b>周实践周期</div>
+      <div><b>50</b>人深度访谈</div>
+      <div><b>186</b>份有效问卷</div>
+      <div><b>120+</b>份政策文本</div>
+      <div><b>3</b>维效应评估</div>
+    </div>
+  </div>
+</div>
+
+<main>
+
+<section>
+  <h2>一、项目背景与意义</h2>
+  <p class="sub">立足交通强国与"一带一路"战略，服务陕西绿色低碳发展</p>
+
+  <div class="grid g2">
+    <div class="card ice">
+      <h4>🎯 研究背景</h4>
+      <ul>
+        <li><b>政策契机：</b>交通强国战略部署，陕西推动铁路专用线与绿色低碳发展</li>
+        <li><b>现实需求：</b>中欧班列（西安）累计开行破10万列，集结中心效应亟待评估</li>
+        <li><b>数据支撑：</b>卫星遥感、夜间灯光、货车GPS等多源大数据技术成熟</li>
+      </ul>
+    </div>
+    <div class="card amber">
+      <h4>💡 创新意义</h4>
+      <ul>
+        <li><b>学术价值：</b>首次以自动机器学习评估内陆枢纽"公转铁"绿色效应</li>
+        <li><b>应用价值：</b>为港务区运营优化与班列开行提供决策依据</li>
+        <li><b>育人价值：</b>真实课题训练交叉学科素养与政策分析能力</li>
+      </ul>
+    </div>
+  </div>
+</section>
+
+<section>
+  <h2>二、拟解决的核心问题</h2>
+  <div class="grid g3">
+    <div class="card">
+      <span class="num">1</span>
+      <h4>环境约束问题</h4>
+      <p>交通运输碳排放占全省11%，铁路能耗为卡车1/13。现有研究对集结中心碳排放降幅、污染浓度变化测度不充分，难以支撑绿色交通政策制定。</p>
+    </div>
+    <div class="card">
+      <span class="num">2</span>
+      <h4>经济效率问题</h4>
+      <p>中欧班列回程货值占比升至52%，但口岸数据标准不统一、"一箱到底"落地困难、成本传导机制不清晰等问题制约集结中心效率提升。</p>
+    </div>
+    <div class="card">
+      <span class="num">3</span>
+      <h4>社会均衡问题</h4>
+      <p>西安GDP占全省36%，周边增速不足5%。集结中心红利主要集聚核心城区，向腹地传导不畅，区域差距扩大趋势明显。</p>
+    </div>
+  </div>
+</section>
+
+<section>
+  <h2>三、技术路线与方法创新</h2>
+  <p class="sub">自动机器学习 + 多源数据融合 + 因果推断</p>
+
+  <div class="timeline">
+    <div class="timeline-item">
+      <div class="timeline-marker">1</div>
+      <div class="timeline-content">
+        <h4>数据准备与标签构建</h4>
+        <p>以ERA5-Land大气数据为预测标签，通过随机打乱与滚动两周前后同一小时标签完成模型准备，确保训练数据的时空一致性。</p>
+      </div>
+    </div>
+
+    <div class="timeline-item">
+      <div class="timeline-marker">2</div>
+      <div class="timeline-content">
+        <h4>自动机器学习模型训练</h4>
+        <p>运用XGBoost、GBM、随机森林与深度学习等算法对训练数据集进行降噪与模型校准，重复500次交叉验证确保稳健性。</p>
+      </div>
+    </div>
+
+    <div class="timeline-item">
+      <div class="timeline-marker">3</div>
+      <div class="timeline-content">
+        <h4>模型评估与数据净化</h4>
+        <p>生成机器学习降噪后的PM2.5浓度数据，结合r²、RMSE、FAC2、IOA等指标评估模型精度，确保数据质量。</p>
+      </div>
+    </div>
+
+    <div class="timeline-item">
+      <div class="timeline-marker">4</div>
+      <div class="timeline-content">
+        <h4>因果推断与效应测度</h4>
+        <p>将净化后数据导入事件分析、合成差分、增强型合成控制与时间断点回归等因果推断框架，精准测度政策冲击效应。</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section>
+  <h2>四、数据来源与规模</h2>
+  <div class="grid g2" style="grid-template-columns:1.2fr 1fr; align-items:start">
+    <div>
+      <table>
+        <tr><th style="width:30%">数据类型</th><th>来源与规模</th></tr>
+        <tr>
+          <td><b>卫星遥感数据</b></td>
+          <td>ECMWF、MERRA-2大气再分析数据，覆盖2020-2026年，空间分辨率0.1°×0.1°</td>
+        </tr>
+        <tr>
+          <td><b>夜间灯光数据</b></td>
+          <td>NPP-VIIRS月度合成数据，反映经济活动强度与空间分布</td>
+        </tr>
+        <tr>
+          <td><b>交通轨迹数据</b></td>
+          <td>货车GPS轨迹、高德API实时路况，覆盖港区周边50km范围</td>
+        </tr>
+        <tr>
+          <td><b>调研数据</b></td>
+          <td>50人深度访谈、186份有效问卷（有效率93%）</td>
+        </tr>
+        <tr>
+          <td><b>政策文本</b></td>
+          <td>Python爬虫抓取120+份政策文件与运行报道</td>
+        </tr>
+        <tr>
+          <td><b>班列运行数据</b></td>
+          <td>中欧班列开行列次、回程货值、腹地货物集散结构</td>
+        </tr>
+      </table>
+    </div>
+    <div class="card tint">
+      <h4>📊 数据融合示意</h4>
+      <div style="text-align:center; padding:20px">
+        <div style="display:inline-block; width:80px; height:80px; background:#17766B;
+                    border-radius:50%; color:white; line-height:80px; margin:10px">
+          卫星遥感
+        </div>
+        <div style="margin:10px 0">+</div>
+        <div style="display:inline-block; width:80px; height:80px; background:#2C7A3F;
+                    border-radius:50%; color:white; line-height:80px; margin:10px">
+          夜间灯光
+        </div>
+        <div style="margin:10px 0">+</div>
+        <div style="display:inline-block; width:80px; height:80px; background:#B46A00;
+                    border-radius:50%; color:white; line-height:80px; margin:10px">
+          GPS轨迹
+        </div>
+        <div style="margin:20px 0; font-size:24px">↓</div>
+        <div style="background:#0D3B4F; color:white; padding:15px; border-radius:8px">
+          <b>综合数据库</b><br>
+          <small>支撑三维效应评估</small>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section>
+  <h2>五、核心研究成果</h2>
+  <p class="sub">三维效应量化评估 + 政策建议 + 可视化图集</p>
+
+  <div class="grid g3">
+    <div class="card ice">
+      <h4>🌱 环境维度</h4>
+      <ul>
+        <li>"公转铁"碳排放降幅测算</li>
+        <li>PM2.5等污染物浓度变化</li>
+        <li>减排潜力与成本收益分析</li>
+      </ul>
+      <div class="result-box">
+        <div class="result-label">减排效应</div>
+        <div class="result-value">显著↓</div>
+      </div>
+    </div>
+
+    <div class="card amber">
+      <h4>💰 经济维度</h4>
+      <ul>
+        <li>物流成本降幅定量测算</li>
+        <li>产业集聚效应评估</li>
+        <li>班列网络密度分析</li>
+      </ul>
+      <div class="result-box">
+        <div class="result-label">成本降幅</div>
+        <div class="result-value">优化中</div>
+      </div>
+    </div>
+
+    <div class="card green">
+      <h4>👥 社会维度</h4>
+      <ul>
+        <li>就业民生影响测度</li>
+        <li>腹地均衡发展评估</li>
+        <li>居民感知空间分布</li>
+      </ul>
+      <div class="result-box">
+        <div class="result-label">居民满意度</div>
+        <div class="result-value">86%</div>
+      </div>
+    </div>
+  </div>
+
+  <div class="card" style="margin-top:24px; background:#F8F9FA">
+    <h4>📈 中欧班列承接"一带一路"强化效应</h4>
+    <p style="margin:12px 0">以班列网络密度与腹地集散结构为中介指标，检验开通效应对共建"一带一路"国家贸易通道的承接强化与溢出路径。</p>
+    <div style="display:flex; justify-content:space-around; margin-top:20px">
+      <div style="text-align:center">
+        <div style="font-size:32px; font-weight:bold; color:#17766B">25</div>
+        <div style="color:#5E6A82">欧洲国家</div>
+      </div>
+      <div style="text-align:center">
+        <div style="font-size:32px; font-weight:bold; color:#2C7A3F">220</div>
+        <div style="color:#5E6A82">通达城市</div>
+      </div>
+      <div style="text-align:center">
+        <div style="font-size:32px; font-weight:bold; color:#B46A00">52%</div>
+        <div style="color:#5E6A82">回程货值占比</div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section>
+  <h2>六、政策建议与应用价值</h2>
+  <div class="grid g2">
+    <div class="card">
+      <h4>📋 核心政策建议</h4>
+      <ol>
+        <li><b>"公转铁"牵引政策：</b>建立差异化生态补偿机制，推动运输结构优化</li>
+        <li><b>数据标准统一：</b>打通多式联运信息壁垒，实现"一箱到底"</li>
+        <li><b>腹地红利传导：</b>优化班列集散网络，促进区域协调发展</li>
+        <li><b>低碳运维推广：</b>应用AI算法优化运输组织，年降成本360万元</li>
+      </ol>
+    </div>
+    <div class="card tint">
+      <h4>🎯 应用价值</h4>
+      <ul>
+        <li><b>决策支持：</b>评估报告经咨政渠道报送陕西省政府办公厅</li>
+        <li><b>运营优化：</b>为港务区提供运输组织方案优化依据</li>
+        <li><b>方法复制：</b>技术路线可迁移至其他内陆枢纽城市</li>
+        <li><b>人才培养：</b>完整训练数据采集、建模分析、政策写作能力</li>
+      </ul>
+    </div>
+  </div>
+</section>
+
+<section>
+  <h2>七、快速导航</h2>
+  <div class="grid g3">
+    <div class="card">
+      <h4><a href="method.html">研究方法 →</a></h4>
+      <p>详细了解自动机器学习模型、因果推断框架与技术路线。</p>
+    </div>
+    <div class="card">
+      <h4><a href="data.html">数据可视化 →</a></h4>
+      <p>查看污染物分布图、班列网络图、政策关键词图谱等可视化成果。</p>
+    </div>
+    <div class="card">
+      <h4><a href="results.html">研究成果 →</a></h4>
+      <p>查阅完整评估报告、政策建议与学术产出。</p>
+    </div>
+  </div>
+</section>
+
+</main>
+
+<footer>
+  <div class="hwrap">
+    <div>西安陆港绿色效应测度项目 · 西安建筑科技大学管理学院</div>
+    <div>指导教师：余波 · 团队负责人：石一晶 · 2026年9月</div>
+  </div>
+</footer>
+
+<script src="assets/app.js"></script>
+</body>
+</html>
