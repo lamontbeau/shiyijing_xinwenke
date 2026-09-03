@@ -10,8 +10,8 @@
 
 - **学校**：西安建筑科技大学
 - **学院**：管理学院
+- **团队负责人**：石一晶
 - **指导教师**：余波 老师 
-- **团队负责人**：石一晶 
 - **项目周期**：2026年6月 - 2026年9月
 
 ## 网站内容
@@ -44,7 +44,7 @@
 
 石一晶 | 2763756691@qq.com
 
-余波 |  bo.yu3311@outlook.com | https://faculty.xauat.edu.cn/yubo/zh_CN/index/112464/list/index.htm
+余 波  |  bo.yu3311@outlook.com | https://faculty.xauat.edu.cn/yubo/zh_CN/index/112464/list/index.htm
 
 ---
 
