@@ -1,0 +1,287 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>数据可视化 · 西安陆港绿色效应测度</title>
+<link rel="stylesheet" href="assets/style.css">
+</head>
+<body>
+<header>
+  <div class="hwrap">
+    <div class="brand">
+      <b>西安陆港绿色效应测度</b>
+      <span>西安建筑科技大学 · 管理学院</span>
+    </div>
+    <nav>
+      <a href="index.html">项目概况</a>
+      <a href="method.html">研究方法</a>
+      <a href="data.html" aria-current="page">数据可视化</a>
+      <a href="results.html">研究成果</a>
+      <a href="team.html">团队介绍</a>
+    </nav>
+  </div>
+</header>
+
+<main>
+
+<section>
+  <h2>数据可视化成果</h2>
+  <p class="sub">交互式图表展示三维效应评估结果</p>
+</section>
+
+<section>
+  <h3>一、环境维度：碳排放与污染物浓度变化</h3>
+
+  <div class="card">
+    <h4>📊 PM2.5浓度空间分布图</h4>
+    <p style="margin-bottom:16px">基于机器学习降噪后的卫星遥感数据，绘制港区及周边50km范围PM2.5浓度空间分布图。</p>
+    <div id="pm25Map" style="height:450px; background:#F8F9FA; border:1px solid #BFD3DA; border-radius:8px; position:relative">
+      <!-- PM2.5浓度空间分布图将由JavaScript渲染 -->
+    </div>
+    <p style="font-size:13px; color:#5E6A82; margin-top:12px">
+      数据来源：ECMWF ERA5-Land + 随机森林气象校正 · 时间跨度：2020-2026 · 空间分辨率：0.1°×0.1°
+    </p>
+  </div>
+
+  <div class="grid g2" style="margin-top:24px">
+    <div class="card ice">
+      <h4>🌱 "公转铁"减排效应</h4>
+      <div style="text-align:center; padding:24px 0">
+        <div style="font-size:48px; font-weight:bold; color:#17766B; margin-bottom:8px">显著↓</div>
+        <div style="font-size:16px; color:#5B6B72">碳排放强度呈下降趋势</div>
+        <div style="margin-top:24px; padding-top:24px; border-top:1px solid #BFD3DA">
+          <div style="font-size:14px; text-align:left">
+            <p><b>测算依据：</b></p>
+            <ul style="list-style:none; padding:0">
+              <li>• 铁路单位货物周转碳排放：21 gCO₂/t·km</li>
+              <li>• 公路单位货物周转碳排放：133 gCO₂/t·km</li>
+              <li>• 集结中心年货运量：约350万吨</li>
+              <li>• "公转铁"具有显著减排潜力</li>
+            </ul>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <div class="card amber">
+      <h4>📉 污染物浓度变化趋势</h4>
+      <div id="pollutionTrendChart" style="height:300px; background:#F8F9FA; border:1px solid #BFD3DA; border-radius:8px; padding:16px">
+        <canvas id="pollutionCanvas"></canvas>
+      </div>
+      <p style="font-size:13px; color:#5E6A82; margin-top:12px">
+        对照组与处理组PM2.5浓度变化对比（交错DID估计）
+      </p>
+    </div>
+  </div>
+</section>
+
+<section>
+  <h3>二、经济维度：物流成本与产业集聚</h3>
+
+  <div class="grid g2">
+    <div class="card">
+      <h4>💰 物流成本变化</h4>
+      <div style="text-align:center; padding:24px 0">
+        <div style="font-size:48px; font-weight:bold; color:#B46A00; margin-bottom:8px">有所降低</div>
+        <div style="font-size:16px; color:#5B6B72">铁路运输成本优势明显</div>
+        <div style="margin-top:24px; padding-top:24px; border-top:1px solid #BFD3DA">
+          <table style="width:100%; font-size:14px; text-align:left">
+            <tr><td><b>公路运输成本：</b></td><td style="text-align:right">0.58元/t·km</td></tr>
+            <tr><td><b>铁路运输成本：</b></td><td style="text-align:right">0.32元/t·km</td></tr>
+            <tr><td><b>多式联运成本：</b></td><td style="text-align:right">0.51元/t·km</td></tr>
+            <tr style="border-top:1px solid #BFD3DA"><td><b>成本对比：</b></td><td style="text-align:right; color:#B46A00"><b>铁路更优</b></td></tr>
+          </table>
+        </div>
+      </div>
+    </div>
+
+    <div class="card">
+      <h4>🏭 夜间灯光强度变化（产业集聚代理变量）</h4>
+      <div id="lightChart" style="height:300px; background:#F8F9FA; border:1px solid #BFD3DA; border-radius:8px; padding:16px">
+        <canvas id="lightCanvas"></canvas>
+      </div>
+      <p style="font-size:13px; color:#5E6A82; margin-top:12px">
+        基于NPP-VIIRS夜间灯光数据，反映港区及周边经济活动强度变化
+      </p>
+    </div>
+  </div>
+
+  <div class="card tint" style="margin-top:24px">
+    <h4>🗺️ 产业集聚空间分布图</h4>
+    <p style="margin-bottom:16px">运用ArcGIS叠加夜间灯光与工商企业注册数据，展示西安陆港及周边区域产业集聚空间梯度。</p>
+    <div id="industryMap" style="height:450px; background:#fff; border:1px solid #BFD3DA; border-radius:8px; position:relative">
+      <!-- 产业集聚空间分布图将由JavaScript渲染 -->
+    </div>
+    <p style="font-size:13px; color:#5E6A82; margin-top:12px">
+      数据来源：NPP-VIIRS夜间灯光 + 工商企业注册数据 · 高集聚区集中在港务区及周边15km范围内
+    </p>
+  </div>
+</section>
+
+<section>
+  <h3>三、社会维度：就业民生与区域均衡</h3>
+
+  <div class="grid g2">
+    <div class="card green">
+      <h4>👥 居民感知评分分布</h4>
+      <div id="satisfactionChart" style="height:300px; background:#F8F9FA; border:1px solid #BFD3DA; border-radius:8px; padding:16px">
+        <canvas id="satisfactionCanvas"></canvas>
+      </div>
+      <p style="font-size:13px; color:#5E6A82; margin-top:12px">
+        基于186份有效问卷，居民对集结中心开通的综合满意度评分
+      </p>
+    </div>
+
+    <div class="card">
+      <h4>📊 就业影响评估</h4>
+      <div style="padding:20px 0">
+        <table style="width:100%; font-size:14px">
+          <tr><th style="width:40%">指标</th><th style="text-align:center">变化</th></tr>
+          <tr>
+            <td>港区直接就业</td>
+            <td style="text-align:center; color:#2C7A3F; font-weight:bold">+2,300人</td>
+          </tr>
+          <tr>
+            <td>物流服务业就业</td>
+            <td style="text-align:center; color:#2C7A3F; font-weight:bold">+1,800人</td>
+          </tr>
+          <tr>
+            <td>周边配套产业就业</td>
+            <td style="text-align:center; color:#2C7A3F; font-weight:bold">+3,500人</td>
+          </tr>
+          <tr style="border-top:2px solid #BFD3DA">
+            <td><b>合计（估算）</b></td>
+            <td style="text-align:center; color:#2C7A3F; font-weight:bold; font-size:16px">+7,600人</td>
+          </tr>
+        </table>
+      </div>
+    </div>
+  </div>
+
+  <div class="card ice" style="margin-top:24px">
+    <h4>🎯 居民感知热点词云</h4>
+    <p style="margin-bottom:16px">基于186份问卷开放性问题，运用jieba分词生成高频词云图。</p>
+    <div style="height:300px; background:#fff; border:1px solid #BFD3DA; border-radius:8px;
+                display:flex; align-items:center; justify-content:center">
+      <div style="text-align:center; line-height:2; font-size:14px">
+        <span style="font-size:32px; color:#17766B; font-weight:bold">就业机会</span>
+        <span style="font-size:24px; color:#2C7A3F; font-weight:bold; margin:0 12px">交通便利</span>
+        <span style="font-size:20px; color:#B46A00">环境改善</span><br>
+        <span style="font-size:28px; color:#0D3B4F; font-weight:bold">物流发展</span>
+        <span style="font-size:18px; color:#5B6B72; margin:0 8px">区域带动</span>
+        <span style="font-size:22px; color:#2C7A3F; font-weight:bold">收入增加</span><br>
+        <span style="font-size:20px; color:#17766B">城市建设</span>
+        <span style="font-size:26px; color:#B46A00; font-weight:bold; margin:0 12px">噪音降低</span>
+        <span style="font-size:18px; color:#5B6B72">配套完善</span>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section>
+  <h3>四、中欧班列网络可视化</h3>
+
+  <div class="card">
+    <h4>🚄 中欧班列（西安）网络通达图</h4>
+    <p style="margin-bottom:16px">运用QGIS绘制通达欧洲25国220城的班列网络图，展示西安陆港的国际枢纽地位。</p>
+    <div id="railwayMap" style="height:450px; background:#F0F7FA; border:1px solid #BFD3DA; border-radius:8px; position:relative">
+      <!-- 中欧班列网络图将由JavaScript渲染 -->
+    </div>
+    <p style="font-size:13px; color:#5E6A82; margin-top:12px">
+      数据来源：中欧班列开行数据 + GIS路径分析 · 累计开行超10万列 · 回程货值占比52% · 通达欧洲25国220城
+    </p>
+  </div>
+        </div>
+      </div>
+    </div>
+    <p style="font-size:13px; color:#5E6A82; margin-top:12px">
+      数据来源：西安国际港务区 · QGIS网络分析 · 2020-2026年累计数据
+    </p>
+  </div>
+</section>
+
+<section>
+  <h3>五、政策文本分析</h3>
+
+  <div class="grid g2">
+    <div class="card">
+      <h4>📄 政策关键词演变</h4>
+      <p style="margin-bottom:16px">对120+份政策文件进行jieba分词与词频统计，呈现政策关注重点的演变轨迹。</p>
+      <div style="height:280px; background:#F8F9FA; border:1px solid #BFD3DA; border-radius:8px; padding:16px">
+        <canvas id="policyTrendChart"></canvas>
+      </div>
+      <p style="font-size:13px; color:#5E6A82; margin-top:12px">
+        政策关注从"开行量"向"绿色化、数字化、规则衔接"演变
+      </p>
+    </div>
+
+    <div class="card tint">
+      <h4>☁️ 政策高频词云</h4>
+      <div style="height:280px; background:#fff; border:1px solid #BFD3DA; border-radius:8px;
+                  display:flex; align-items:center; justify-content:center">
+        <div style="text-align:center; line-height:2.2; font-size:14px; padding:20px">
+          <span style="font-size:36px; color:#0D3B4F; font-weight:bold">一带一路</span>
+          <span style="font-size:28px; color:#17766B; font-weight:bold; margin:0 12px">绿色低碳</span><br>
+          <span style="font-size:24px; color:#2C7A3F; font-weight:bold">中欧班列</span>
+          <span style="font-size:20px; color:#B46A00; margin:0 10px">数字化</span>
+          <span style="font-size:26px; color:#17766B; font-weight:bold">多式联运</span><br>
+          <span style="font-size:22px; color:#5B6B72">规则衔接</span>
+          <span style="font-size:30px; color:#0D3B4F; font-weight:bold; margin:0 12px">高质量发展</span><br>
+          <span style="font-size:20px; color:#2C7A3F">通关便利</span>
+          <span style="font-size:24px; color:#B46A00; font-weight:bold; margin:0 10px">公转铁</span>
+          <span style="font-size:18px; color:#5B6B72">生态补偿</span>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section>
+  <h3>六、交互式数据仪表板</h3>
+  <p>下方仪表板整合三维效应核心指标，支持时间区间筛选与对比分析。</p>
+
+  <div class="card" style="margin-top:24px; background:#F8F9FA">
+    <div style="display:flex; justify-content:space-between; align-items:center; margin-bottom:20px">
+      <h4 style="margin:0">📊 综合效应仪表板</h4>
+      <div style="display:flex; gap:12px">
+        <select id="timeRange" style="padding:6px 12px; border:1px solid #BFD3DA; border-radius:6px; font-size:14px">
+          <option>2020-2026全周期</option>
+          <option>2020-2022开通初期</option>
+          <option>2023-2026成熟期</option>
+        </select>
+        <button onclick="updateDashboard()" style="padding:6px 16px; background:#17766B; color:white;
+                border:none; border-radius:6px; cursor:pointer; font-size:14px">刷新</button>
+      </div>
+    </div>
+
+    <div class="grid g3">
+      <div style="background:white; padding:20px; border-radius:8px; text-align:center">
+        <div style="font-size:13px; color:#5E6A82; margin-bottom:8px">碳排放强度</div>
+        <div style="font-size:36px; font-weight:bold; color:#17766B">下降趋势</div>
+      </div>
+      <div style="background:white; padding:20px; border-radius:8px; text-align:center">
+        <div style="font-size:13px; color:#5E6A82; margin-bottom:8px">物流成本</div>
+        <div style="font-size:36px; font-weight:bold; color:#B46A00">有所降低</div>
+      </div>
+      <div style="background:white; padding:20px; border-radius:8px; text-align:center">
+        <div style="font-size:13px; color:#5E6A82; margin-bottom:8px">居民综合满意度</div>
+        <div style="font-size:36px; font-weight:bold; color:#2C7A3F">86%</div>
+      </div>
+    </div>
+  </div>
+</section>
+
+</main>
+
+<footer>
+  <div class="hwrap">
+    <div>西安陆港绿色效应测度项目 · 西安建筑科技大学管理学院</div>
+    <div>指导教师：余波 · 团队负责人：石一晶 · 2026年9月</div>
+  </div>
+</footer>
+
+<script src="https://cdn.jsdelivr.net/npm/chart.js@4.4.0/dist/chart.umd.min.js"></script>
+<script src="assets/app.js"></script>
+</body>
+</html>
