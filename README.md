@@ -6,6 +6,10 @@
 
 本项目运用随机森林、XGBoost等自动机器学习算法，融合卫星遥感、夜间灯光、货车GPS等多源大数据，评估西安国际陆港集结中心的环境、经济、社会三维效应，服务"一带一路"高质量发展。
 
+## 在线访问
+
+访问链接：https://lamontbeau.github.io/shiyijing_xinwenke/
+
 ## 项目信息
 
 - **学校**：西安建筑科技大学
@@ -34,9 +38,6 @@
 
 直接在浏览器中打开 `index.html` 即可查看网站。
 
-## 在线访问
-
-访问链接：https://lamontbeau.github.io/shiyijing_xinwenke/
 
 ## 联系方式
 
